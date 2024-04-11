@@ -1,0 +1,7 @@
+<h4>Erro no servidor - Se vc veio parar aqui e tem alguma mensagem de erro abaixo, manda um print pra mim</h4>
+<ng-container *ngIf="error">
+    <h5 class="text-danger">Erro: {{error.message}}</h5>
+    <code class="mt-5" style="background-color: whitesmoke;">
+        {{error.details}}
+    </code>
+</ng-container>
