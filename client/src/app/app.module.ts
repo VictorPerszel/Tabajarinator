@@ -7,14 +7,21 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { RegisterComponent } from './register/register.component';
+import { AvaliaListaComponent } from './avalia/avalia-lista/avalia-lista.component';
+import { AvaliaJogadorComponent } from './avalia/avalia-jogador/avalia-jogador.component';
+import { CalculadoraComponent } from './calculadora/calculadora.component';
+import { SharedModule } from './_modules/shared.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    RegisterComponent
+    RegisterComponent,
+    AvaliaListaComponent,
+    AvaliaJogadorComponent,
+    CalculadoraComponent
     
   ],
   imports: [
@@ -23,7 +30,8 @@ import { RegisterComponent } from './register/register.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    BsDropdownModule.forRoot()
+    SharedModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

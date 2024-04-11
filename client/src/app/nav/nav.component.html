@@ -9,22 +9,18 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="accountService.currentUser$ | async">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Calculadora de times</a>
+          <a class="nav-link" routerLink="/avaliar" routerLinkActive="active">Avaliar os craques</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Avaliar os craques</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-disabled="true">Logout</a>
+          <a class="nav-link" routerLink="/calculadora" routerLinkActive="active">Calculadora de times</a>
         </li>
       </ul>
     </div>
 
-    <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
-      <a class="dropdown-toggle text-light" dropdownToggle>Bem-vindo</a>
+    <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as jogador" dropdown>
+      <a class="dropdown-toggle text-light" dropdownToggle>{{jogador.usuario | titlecase}}</a>
       <div class="dropdown-menu" *dropdownMenu>
-        <a class="dropdown-item">Editar Perfil</a>
-        
+        <a class="dropdown-item">Editar Perfil</a>        
         <a class="dropdown-item" (click)="logout()">Logout</a>
       </div>
     </div>
