@@ -17,7 +17,14 @@ builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 
-builder.Services.AddCors();
+builder.Services.AddCors(options => options.AddPolicy("euodeiotrabalharcomcors",
+                          policy =>
+                          {
+                              policy.WithOrigins("https://localhost:4200",
+                                                  "http://localhost:4200")
+                                                  .AllowAnyHeader()
+                                                  .AllowAnyMethod();
+                          }));
 
 var app = builder.Build();
 
@@ -32,7 +39,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+app.UseCors("euodeiotrabalharcomcors");
 
 app.UseAuthentication();
 app.UseAuthorization();

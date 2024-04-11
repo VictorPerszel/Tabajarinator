@@ -1,7 +1,7 @@
 ﻿namespace API.DTOs;
 
-public class UserDto
+public class JogadorDto
 {
-    public string Username { get; set; }
+    public string Usuario { get; set; }
     public string Token { get; set; }
 }

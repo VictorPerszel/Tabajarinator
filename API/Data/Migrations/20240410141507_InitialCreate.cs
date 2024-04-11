@@ -11,16 +11,18 @@ namespace API.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Jogadores",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UserName = table.Column<string>(type: "TEXT", nullable: true)
+                    Usuario = table.Column<string>(type: "TEXT", nullable: true),
+                    HashSenha = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    SalSenha = table.Column<byte[]>(type: "BLOB", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Jogadores", x => x.Id);
                 });
         }
 
@@ -28,7 +30,7 @@ namespace API.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Jogadores");
         }
     }
 }

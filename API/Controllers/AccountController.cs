@@ -22,55 +22,55 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<JogadorDto>> Register(RegisterDto registerDto)
         {
-            if (await UserExists(registerDto.Username)) return BadRequest("Usuário já existe");
+            if (await UserExists(registerDto.Usuario)) return BadRequest("Usuário já existe");
 
             using var hmac = new HMACSHA512();
 
-            var user = new AppUser
+            var jogador = new Jogador
             {
-                UserName = registerDto.Username.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key
+                Usuario = registerDto.Usuario.ToLower(),
+                HashSenha = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Senha)),
+                SalSenha = hmac.Key
             };
 
-            _context.Users.Add(user);
+            _context.Jogadores.Add(jogador);
             await _context.SaveChangesAsync();
 
-            return new UserDto
+            return new JogadorDto
             {
-                Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Usuario = jogador.Usuario,
+                Token = _tokenService.CreateToken(jogador)
             };
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+        public async Task<ActionResult<JogadorDto>> Login(LoginDto loginDto)
         {
-            var user = await  _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
+            var user = await  _context.Jogadores.SingleOrDefaultAsync(x => x.Usuario == loginDto.Usuario);
 
             if (user == null) return Unauthorized();
             
-            using var hmac = new HMACSHA512(user.PasswordSalt);
+            using var hmac = new HMACSHA512(user.SalSenha);
 
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Senha));
 
             for (int i = 0; i < computedHash.Length; i++)
             {
-                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Senha incorreta");
+                if (computedHash[i] != user.HashSenha[i]) return Unauthorized("Senha incorreta");
             }
 
-            return new UserDto
+            return new JogadorDto
             {
-                Username = user.UserName,
+                Usuario = user.Usuario,
                 Token = _tokenService.CreateToken(user)
             };
         }
 
-        private async Task<bool> UserExists(string username)
+        private async Task<bool> UserExists(string usuario)
         {
-            return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
+            return await _context.Jogadores.AnyAsync(x => x.Usuario == usuario.ToLower());
         }
     }
 }
