@@ -18,6 +18,8 @@ namespace API.Extensions
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IJogadorRepository, JogadorRepository>();
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         return services;
         }

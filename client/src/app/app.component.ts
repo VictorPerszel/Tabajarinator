@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   }
 
   getJogadores() {
-    this.http.get('https://localhost:5001/api/users').subscribe({
+    this.http.get('https://localhost:5001/api/jogadores').subscribe({
       next: response => this.jogadores = response,
       error: error => console.log(error),
       complete: () => console.log('Deu boa')
