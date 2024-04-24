@@ -8,7 +8,7 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Jogador, MembroDto>();
+            CreateMap<Jogador, JogadorDto>();
         }
     }
 }

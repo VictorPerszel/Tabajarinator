@@ -14,7 +14,7 @@ namespace API.Interfaces
         Task<IEnumerable<Jogador>> GetJogadoresAsync();
         Task<Jogador> GetJogadorPorIdAsync(int id);
         Task<Jogador> GetJogadorPorUsuarioAsync(string usuario);
-        Task<IEnumerable<MembroDto>> GetMembrosAsync();
-        Task<MembroDto> GetMembroAsync(string usuario);
+        Task<IEnumerable<JogadorDto>> GetJogadoresDtoAsync();
+        Task<JogadorDto> GetJogadorDtoAsync(string usuario);
     }
 }

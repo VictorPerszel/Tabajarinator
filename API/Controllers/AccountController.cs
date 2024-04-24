@@ -22,7 +22,7 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<JogadorDto>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<UsuarioDto>> Register(RegisterDto registerDto)
         {
             if (await UserExists(registerDto.Usuario)) return BadRequest("Usuário já existe");
 
@@ -38,17 +38,17 @@ namespace API.Controllers
             _context.Jogadores.Add(jogador);
             await _context.SaveChangesAsync();
 
-            return new JogadorDto
+            return new UsuarioDto
             {
-                Usuario = jogador.Usuario,
+                Login = jogador.Usuario,
                 Token = _tokenService.CreateToken(jogador)
             };
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<JogadorDto>> Login(LoginDto loginDto)
+        public async Task<ActionResult<UsuarioDto>> Login(LoginDto loginDto)
         {
-            var user = await  _context.Jogadores.SingleOrDefaultAsync(x => x.Usuario == loginDto.Usuario);
+            var user = await  _context.Jogadores.SingleOrDefaultAsync(x => x.Usuario == loginDto.Login);
 
             if (user == null) return Unauthorized();
             
@@ -61,9 +61,9 @@ namespace API.Controllers
                 if (computedHash[i] != user.HashSenha[i]) return Unauthorized("Senha incorreta");
             }
 
-            return new JogadorDto
+            return new UsuarioDto
             {
-                Usuario = user.Usuario,
+                Login = user.Usuario,
                 Token = _tokenService.CreateToken(user)
             };
         }

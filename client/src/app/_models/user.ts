@@ -1,4 +1,4 @@
-export interface Jogador {
+export interface User {
     usuario: string;
     token: string;
 }

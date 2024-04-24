@@ -33,18 +33,18 @@ namespace API.Data
             return await _context.Jogadores.SingleOrDefaultAsync(x => x.Usuario == usuario);
         }
 
-        public async Task<MembroDto> GetMembroAsync(string usuario)
+        public async Task<JogadorDto> GetJogadorDtoAsync(string usuario)
         {
             return await _context.Jogadores
                 .Where(x => x.Usuario == usuario)
-                .ProjectTo<MembroDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<JogadorDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<MembroDto>> GetMembrosAsync()
+        public async Task<IEnumerable<JogadorDto>> GetJogadoresDtoAsync()
         {
             return await _context.Jogadores
-                .ProjectTo<MembroDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<JogadorDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 

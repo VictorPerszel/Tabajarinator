@@ -18,17 +18,17 @@ public class JogadoresController : BaseApiController
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<MembroDto>>> GetJogadores()
+    public async Task<ActionResult<IEnumerable<JogadorDto>>> GetJogadores()
     {
-        var jogadores = await _jogadorRepository.GetMembrosAsync();
+        var jogadores = await _jogadorRepository.GetJogadoresDtoAsync();
 
         return Ok(jogadores);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<MembroDto>> GetJogador(string usuario)
+    public async Task<ActionResult<JogadorDto>> GetJogador(string usuario)
     {
-        var jogador = await _jogadorRepository.GetMembroAsync(usuario);
+        var jogador = await _jogadorRepository.GetJogadorDtoAsync(usuario);
         
         return Ok(jogador);
     }
