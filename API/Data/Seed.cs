@@ -16,14 +16,14 @@ namespace API.Data
 
             var options = new JsonSerializerOptions{ PropertyNameCaseInsensitive = true };
 
-            var jogadores = JsonSerializer.Deserialize<List<Jogador>>(jogadorData);
+            var jogadores = JsonSerializer.Deserialize<List<Jogador>>(jogadorData, options);
 
             foreach(var jogador in jogadores)
             {
                 using var hmac = new HMACSHA512();
 
                 jogador.Usuario = jogador.Usuario.ToLower();
-                jogador.HashSenha = hmac.ComputeHash(Encoding.UTF8.GetBytes("apwjfpajwfpoawjf"));
+                jogador.HashSenha = hmac.ComputeHash(Encoding.UTF8.GetBytes("123"));
                 jogador.SalSenha = hmac.Key;
 
                 context.Jogadores.Add(jogador);

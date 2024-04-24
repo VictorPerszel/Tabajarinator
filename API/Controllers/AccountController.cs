@@ -48,7 +48,7 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UsuarioDto>> Login(LoginDto loginDto)
         {
-            var user = await  _context.Jogadores.SingleOrDefaultAsync(x => x.Usuario == loginDto.Login);
+            var user = await  _context.Jogadores.SingleOrDefaultAsync(x => x.Usuario == loginDto.Usuario);
 
             if (user == null) return Unauthorized();
             

@@ -1,0 +1,12 @@
+<div class="card mb-4" *ngIf="jogador">
+    <div class="card-img-wrapper">
+        <img src="{{jogador.fotoUrl}}" alt="{{jogador.alcunha}}" class="card-img-top">
+    </div>
+    <div class="card-body p-1">
+        <h6 class="card-title text-center mb-1">
+            <i class="fa fa-user me-2"></i>
+            {{jogador.alcunha}}
+        </h6>
+        <p class="card-txt text-muted text-center"></p>
+    </div>
+</div>

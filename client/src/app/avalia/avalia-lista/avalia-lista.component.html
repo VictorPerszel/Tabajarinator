@@ -1,4 +1,9 @@
 <div class="row">
+  <div class="col-2" *ngFor="let jogador of jogadores">
+    <app-jogador-carta [jogador]="jogador"></app-jogador-carta>
+  </div>
+</div>
+<!-- <div class="row">
     <div class="col-sm-4 mb-3 mb-sm-0">
         <div class="card " style="width: 18rem;">
             <h5 class="card-header " style="background: lightcoral">Não avaliado <fa-icon [icon]="faCircleX"></fa-icon></h5>
@@ -39,4 +44,4 @@
           </div>
     </div>
 </div>
-
+ -->

@@ -4,7 +4,7 @@ namespace API.DTOs
 {
     public class LoginDto
     {
-        public string Login { get; set; }
+        public string Usuario { get; set; }
         public string Senha { get; set; }
     }
 }

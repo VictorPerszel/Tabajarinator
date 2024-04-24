@@ -16,6 +16,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { JogadorCartaComponent } from './avalia/jogador-carta/jogador-carta.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +27,8 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
     AvaliaJogadorComponent,
     CalculadoraComponent,
     NotFoundComponent,
-    ServerErrorComponent
-    
+    ServerErrorComponent,
+    JogadorCartaComponent
   ],
   imports: [
     BrowserModule,
