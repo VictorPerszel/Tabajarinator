@@ -25,7 +25,7 @@ public class JogadoresController : BaseApiController
         return Ok(jogadores);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{usuario}")]
     public async Task<ActionResult<JogadorDto>> GetJogador(string usuario)
     {
         var jogador = await _jogadorRepository.GetJogadorDtoAsync(usuario);

@@ -5,4 +5,5 @@ export interface Jogador {
     ativoEm: string;
     recado: string;
     fotoUrl: string;
+    
 }

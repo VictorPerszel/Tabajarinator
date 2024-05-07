@@ -11,7 +11,7 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 const routes: Routes = [
   {path: '', component: RegisterComponent},
   {path: 'avaliar', component: AvaliaListaComponent, canActivate: [authGuard]},
-  {path: 'avaliar/:id', component: AvaliaJogadorComponent, canActivate: [authGuard]},
+  {path: 'avaliar/:jogador', component: AvaliaJogadorComponent, canActivate: [authGuard]},
   {path: 'calculadora', component: CalculadoraComponent},
   {path: 'registrar', component: RegisterComponent},
   {path: 'not-found', component: NotFoundComponent},

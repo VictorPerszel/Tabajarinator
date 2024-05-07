@@ -13,22 +13,11 @@ export class JogadoresService {
   constructor(private http: HttpClient) { }
 
   getJogadores() {
-    return this.http.get<Jogador[]>(this.baseUrl + 'jogadores', this.getHttpOptions())
+    return this.http.get<Jogador[]>(this.baseUrl + 'jogadores')
   }
 
   getJogador(usuario: string) {
-    return this.http.get<Jogador>(this.baseUrl + 'jogadores/' + usuario, this.getHttpOptions())
+    return this.http.get<Jogador>(this.baseUrl + 'jogadores/' + usuario)
   }
 
-  getHttpOptions() {
-    const loginStr = localStorage.getItem('jogador');
-    if (!loginStr) return;
-
-    const login = JSON.parse(loginStr);
-    return {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + login.token
-      })
-    }
-  }
 }

@@ -1,0 +1,151 @@
+.fut-player-card {
+    position: relative;
+	width: 300px;
+	height: 485px;
+	background-image: url(https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png);
+	background-position: center center;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	padding: 3.8rem 0;
+	z-index: 2;
+	-webkit-transition: 200ms ease-in;
+	-o-transition: 200ms ease-in;
+	transition: 200ms ease-in;
+}
+
+.fut-player-card .player-card-top .player-picture {
+	width: 200px;
+	height: 200px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.fut-player-card .player-card-top .player-picture img {
+	width: 100%;
+	height: 100%;
+	-o-object-fit: contain;
+	object-fit: contain;
+	position: relative;
+	bottom: 0;
+	border-radius: 30px;
+}
+
+.fut-player-card .player-card-bottom {
+	position: relative;
+}
+
+.fut-player-card .player-card-bottom .player-info {
+	display: block;
+	padding: 0.3rem 0;
+	color: #e9cc74;
+	width: 90%;
+	margin: 0 auto;
+	height: auto;
+	position: relative;
+	z-index: 2;
+}
+
+.fut-player-card .player-card-bottom .player-info .player-name {
+	width: 100%;
+	display: block;
+	text-align: center;
+	font-size: 2rem;
+	text-transform: uppercase;
+	border-bottom: 8px solid rgba(233, 204, 116, 0.1);
+	padding-bottom: 0.3rem;
+	overflow: hidden;
+}
+
+.fut-player-card .player-card-bottom .player-info .player-name span {
+	display: block;
+	text-shadow: 2px 2px #111;
+}
+
+.fut-player-card .player-card-bottom .player-info .player-features {
+	margin: 0.5rem auto;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+.fut-player-card .player-card-button {
+	font-size: 1.2rem;
+	text-align: center;
+	padding: 10px;
+	border-bottom: 2px solid rgba(233, 204, 116, 0.1);
+}
+
+/* .fut-player-card .player-card-button:hover span {
+	display: none;
+} */
+/* 
+.av-rapida:hover:before {
+	content: "Acho que sei quem é...";
+	cursor: pointer;
+} */
+
+.av-completa:hover span {
+	display: none;
+}
+
+.av-completa:hover:before {
+	content: "Eu conheço o craque!";	
+	cursor: pointer;
+}
+
+/* These styles are applied by default.
+   They will also override the hover
+   style for all stars to the right
+   of the currently hovered star. */
+   .rate i, .rate i:hover ~ i {
+	color: #222;
+	text-shadow: none;
+	transition: color 200ms,
+				text-shadow 200ms;
+	/* This will remove the delay when
+	   moving the cursor left or right
+	   within the set of stars. */
+	transition-delay: 0;
+  }
+  
+  /* This is the style that will be
+	 applied to all stars and then
+	 subsequently removed from the stars
+	 to the right of the one being
+	 hovered. */
+  .rate:hover i {
+	color: #fc0;
+	text-shadow: #fc0 0 0 20px;
+  }
+  
+  /* Make the effect apply one star at a
+	 time. Limiting the selector to when
+	 .rate is hovered removes the effect
+	 without delay when cursor leaves
+	 the .rate area. */
+  .rate:hover i:nth-child(2) {
+	transition-delay: 30ms;
+  }
+  
+  .rate:hover i:nth-child(3) {
+	transition-delay: 60ms;
+  }
+  
+  .rate:hover i:nth-child(4) {
+	transition-delay: 90ms;
+  }
+  
+  .rate:hover i:nth-child(5) {
+	transition-delay: 120ms;
+  }
+  
+  /* Miscellaneous styles. */
+  .rate i {
+	cursor: pointer;
+	font-style: normal;
+  }
+  
+  

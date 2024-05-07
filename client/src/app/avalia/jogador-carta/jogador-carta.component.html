@@ -1,12 +1,27 @@
-<div class="card mb-4" *ngIf="jogador">
-    <div class="card-img-wrapper">
-        <img src="{{jogador.fotoUrl}}" alt="{{jogador.alcunha}}" class="card-img-top">
+<div class="mb-4" *ngIf="jogador">
+  <div class="fut-player-card">
+    <div class="player-card-top">
+      <div class="player-picture">
+        <img src="{{jogador.fotoUrl}}" alt="{{jogador.alcunha}}" class="card-img-top" draggable="false">
+      </div>
     </div>
-    <div class="card-body p-1">
-        <h6 class="card-title text-center mb-1">
-            <i class="fa fa-user me-2"></i>
-            {{jogador.alcunha}}
-        </h6>
-        <p class="card-txt text-muted text-center"></p>
+    <div class="player-card-bottom">
+      <div class="player-info">
+        <div class="player-name">
+          <span>{{jogador.alcunha}}</span>
+        </div>
+        <div class="player-card-button av-rapida">
+          <span>AV. RÁPIDA </span>
+          <!--span class="rate"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span>
+          <div class="star-rating">
+            <i class="fa fa-star" *ngFor="let star of stars"></i>
+            <i class="fa fa-star-half" *ngIf="rating % 1 !== 0"></i>
+          </div-->
+        </div>
+        <div class="player-card-button av-completa">
+          <span routerLink="/avaliar/{{jogador.usuario}}">AVALIAÇÃO COMPLETA</span>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
