@@ -1,5 +1,6 @@
 
 using API.Data;
+using API.Entities;
 using API.Interfaces;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace API.Extensions
         services.AddSwaggerGen();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IJogadorRepository, JogadorRepository>();
+        services.AddScoped<IAvaliacaoRepository, AvaliacaoRepository>();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         return services;

@@ -11,4 +11,7 @@ public class Jogador
     public DateTime AtivoEm { get; set; } = DateTime.UtcNow;
     public string Recado { get; set; }
     public string FotoUrl { get; set; }
+
+    public List<Avaliacao> AvalFeitas { get; set; }
+    public List<Avaliacao> AvalRecebidas { get; set; }
 }
