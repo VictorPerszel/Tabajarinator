@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
-const Login = ({ onSwitchToCadastro }) => {
+const Login = () => {
   const [login, setLogin] = useState('');
   const [senha, setSenha] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,14 +15,20 @@ const Login = ({ onSwitchToCadastro }) => {
         username: login,
         password: senha,
       });
-  
+      
+      console.log(response)
       const { token } = response.data;
       localStorage.setItem('token', token);
-      alert('Login bem-sucedido!');
+      router.push('/avaliar');
     } catch (error) {
+      console.log(error);
       alert('Erro ao fazer login. Verifique suas credenciais.');
     }
   };
+
+  const onSwitchToCadastro = () => {
+    router.push('/cadastro');
+  }
 
   return (
     <div style={styles.container}>

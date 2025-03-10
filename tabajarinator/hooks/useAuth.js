@@ -13,8 +13,6 @@ const useAuth = () => {
       router.push('/login');
     }
   }, [router]); // Dependência do router para evitar warnings
-
-  return null; // O hook não precisa retornar nada
 };
 
 export default useAuth;

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
-const Cadastro = ({ onRegister, onSwitchToLogin }) => {
+const Cadastro = () => {
   const [login, setLogin] = useState('');
   const [nome, setNome] = useState('');
   const [senha, setSenha] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +24,10 @@ const Cadastro = ({ onRegister, onSwitchToLogin }) => {
       alert('Erro ao cadastrar. Tente novamente.');
     }
   };
+
+  const onSwitchToLogin = () => {
+    router.push('/login');
+  }
 
   return (
     <div style={styles.container}>

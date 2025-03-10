@@ -1,22 +1,7 @@
-import { useState } from 'react';
-import Login from './login';
-import Cadastro from './cadastro';
+import '../styles/globals.css'; // Importe seus estilos globais, se houver
 
 function MyApp({ Component, pageProps }) {
-  const [isCadastro, setIsCadastro] = useState(false);
-
-  return (
-    <>
-      {isCadastro ? (
-        <Cadastro
-          onRegister={() => setIsCadastro(false)}
-          onSwitchToLogin={() => setIsCadastro(false)}
-        />
-      ) : (
-        <Login onSwitchToCadastro={() => setIsCadastro(true)} />
-      )}
-    </>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;
