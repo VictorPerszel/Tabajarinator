@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import Rating from 'react-rating';
-import { FaStar } from 'react-icons/fa';
 import FUTCard from '@/components/fut_card';
-
-
 
 const Avaliar = () => {
   const [avaliacoes, setAvaliacoes] = useState([]);
