@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'corsheaders',
+    'auth_api',
+    'avaliacoes'
 ]
 
 MIDDLEWARE = [
@@ -143,3 +145,9 @@ LOGIN_REDIRECT_URL = '/avaliar'  # Página para redirecionar após o login
 LOGOUT_REDIRECT_URL = '/login'  # Página para redirecionar após o logout
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
