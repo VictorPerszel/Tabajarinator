@@ -22,8 +22,11 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 400;
+  background:url("https://user-images.githubusercontent.com/22690563/67150939-14a0b180-f2c7-11e9-8016-a993a397e1c5.jpg") no-repeat center center / cover;
 }
+
 
 label {
   color: #000

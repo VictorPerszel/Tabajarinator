@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import Rating from 'react-rating';
 import { FaStar } from 'react-icons/fa';
+import FUTCard from '@/components/fut_card';
 
 
 
@@ -30,37 +31,14 @@ const Avaliar = () => {
 
     fetchAvaliacoes();
   }, []);
-
-  const handleSubmit = async (avaliadoId, nota) => {
-    try {
-      await axios.post('http://localhost:8000/api/avaliacoes/criar/', {
-        avaliado: avaliadoId,
-        nota_geral: nota,
-      }, {
-        headers: {
-          Authorization: `Token ${localStorage.getItem('token')}`, 
-        },
-      });
-    } catch (error) {
-      console.error('Erro ao criar avaliação:', error);
-    }
-  };   
+  
 
   return (
     <div style={styles.container}>
-      
-      <h1>Avaliar Usuários</h1>
         {avaliacoes.map((aval) => (          
-          <form key={aval.id} onSubmit={handleSubmit}>
+          <form key={aval.id}>
             <div style={styles.usuarioContainer}>
-              <h2>Avaliando: {`${aval.first_name}`}</h2>
-              <Rating
-                fractions="2"
-                initialRating={aval.nota_geral}
-                emptySymbol={<FaStar color="grey" />}
-                fullSymbol={<FaStar color="gold" />}
-                onChange={(nota) => handleSubmit(aval.id, nota)}
-              />
+              <FUTCard nome={aval.first_name} initialRating={aval.nota_geral} idAvaliado={aval.id}/>
             </div>
           </form>
         ))}
@@ -70,15 +48,14 @@ const Avaliar = () => {
 
 const styles = {
   container: {
-    padding: '20px',
     fontFamily: 'Arial, sans-serif',
+    display: 'flex',    
+    'flex-wrap': 'wrap',
+    'justify-content': 'center'
   },
   usuarioContainer: {
-    marginBottom: '20px',
-    padding: '10px',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-  },
+    margin: '8px',
+  }
 };
 
 export default Avaliar;
