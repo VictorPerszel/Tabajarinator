@@ -15,7 +15,7 @@ const Avaliar = () => {
       try {
         const token = localStorage.getItem('token');
 
-        const response = await axios.get('http://localhost:8000/api/avaliacoes/consultar/', {
+        const response = await axios.get('http://localhost:8000/api/avaliacoes/jogadores/', {
           headers: {
             'Authorization': `Token ${token}`
           }
@@ -51,15 +51,15 @@ const Avaliar = () => {
       
       <h1>Avaliar Usuários</h1>
         {avaliacoes.map((aval) => (          
-          <form key={aval.id_avaliado} onSubmit={handleSubmit}>
+          <form key={aval.id} onSubmit={handleSubmit}>
             <div style={styles.usuarioContainer}>
-              <h2>Avaliando: {`${aval.nome_avaliado}`}</h2>
+              <h2>Avaliando: {`${aval.first_name}`}</h2>
               <Rating
                 fractions="2"
                 initialRating={aval.nota_geral}
                 emptySymbol={<FaStar color="grey" />}
                 fullSymbol={<FaStar color="gold" />}
-                onChange={(nota) => handleSubmit(aval.id_avaliado, nota)}
+                onChange={(nota) => handleSubmit(aval.id, nota)}
               />
             </div>
           </form>

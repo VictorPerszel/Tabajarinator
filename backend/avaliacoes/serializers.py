@@ -3,9 +3,19 @@ from .models import Avaliacao
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
+    nota_geral = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name']
+        fields = ['id', 'first_name', 'nota_geral']
+
+    def get_nota_geral(self, obj):
+        request_user = self.context['request'].user
+        avaliacao = Avaliacao.objects.filter(
+            avaliado=obj, 
+            corneta=request_user
+        ).first()
+        return avaliacao.nota_geral if avaliacao else None
 
 class AvaliacaoSerializer(serializers.ModelSerializer):
     corneta = UserSerializer(read_only=True)    
