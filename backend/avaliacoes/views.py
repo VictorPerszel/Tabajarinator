@@ -7,13 +7,17 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-class AvaliacaoCreateView(generics.CreateAPIView):
+class AvaliacaoCreateView(generics.ListCreateAPIView):
     queryset = Avaliacao.objects.all()
     serializer_class = AvaliacaoSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(corneta=self.request.user, avaliado_id=self.request.data.get('avaliado'))
+        Avaliacao.objects.update_or_create(
+            corneta=self.request.user,
+            avaliado_id=self.request.data.get('avaliado'),
+            defaults=serializer.validated_data
+        )
 
 class UserAvaliacaoView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]

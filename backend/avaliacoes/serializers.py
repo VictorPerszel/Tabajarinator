@@ -23,7 +23,7 @@ class AvaliacaoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Avaliacao
-        fields = ['id', 'corneta', 'avaliado', 'nota_geral']    
+        fields = ['id', 'corneta', 'avaliado', 'nota_geral']   
 
 class UserAvaliacaoSerializer(serializers.ModelSerializer):
     id_avaliado = serializers.CharField(source='avaliado.id')
