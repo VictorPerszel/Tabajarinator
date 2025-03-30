@@ -6,14 +6,14 @@ class Avaliacao(models.Model):
     corneta = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='avaliacoes_feitas',
+        related_name='realiza_avaliacao',
         db_column='id_corneta', 
         verbose_name='Corneta'
     )
     avaliado = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='avaliacoes_recebidas',        
+        related_name='recebe_avaliacao',        
         db_column='id_avaliado',
         verbose_name='Avaliado'
     )

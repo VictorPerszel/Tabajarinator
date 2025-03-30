@@ -1,7 +1,10 @@
-from rest_framework import generics
 from .models import Avaliacao
-from .serializers import AvaliacaoSerializer
+from .serializers import AvaliacaoSerializer, UserAvaliacaoSerializer
 from django.contrib.auth.models import User
+
+from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 class AvaliacaoCreateView(generics.CreateAPIView):
@@ -12,10 +15,12 @@ class AvaliacaoCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(corneta=self.request.user, avaliado_id=self.request.data.get('avaliado'))
 
-class AvaliacaoListView(generics.ListAPIView):
-    serializer_class = AvaliacaoSerializer
+class UserAvaliacaoView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
+    serializer_class = UserAvaliacaoSerializer
 
-    def get_queryset(self):
+    def get(self, request):
         user = self.request.user
-        return Avaliacao.objects.filter(corneta=user)
+        profiles = Avaliacao.objects.filter(corneta=user)
+        serializer = UserAvaliacaoSerializer(profiles, many=True)
+        return Response(serializer.data)
