@@ -11,6 +11,7 @@ const Avaliar = () => {
     const fetchAvaliacoes = async () => {
       try {
         const token = localStorage.getItem('token');
+        console.log('token', token);
 
         const response = await axios.get('http://localhost:8000/api/avaliacoes/jogadores/', {
           headers: {
@@ -46,8 +47,8 @@ const styles = {
   container: {
     fontFamily: 'Arial, sans-serif',
     display: 'flex',    
-    'flex-wrap': 'wrap',
-    'justify-content': 'center'
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   },
   usuarioContainer: {
     margin: '8px',

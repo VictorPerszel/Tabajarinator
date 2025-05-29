@@ -1,40 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Tabajarinator
 
-## Getting Started
+Study project to evaluate my football colleagues and to separate the teams automatically!
 
-First, run the development server:
+# How to run
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Before running the project, ensure you have the following installed:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- [Python](https://www.python.org/downloads/) (version X.X or higher)
+- [Node.js](https://nodejs.org/) (includes npm, version X.X or higher)
+- [PostgreSQL](https://www.postgresql.org/download/) (version X.X or higher)
+- [React](https://reactjs.org/) (will be installed via npm)
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Setup Instructions
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+### Backend Setup (Django)
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Create and activate a virtual environment**:
+   ```bash
+   python -m venv venv
+   # On Windows:
+   venv\Scripts\activate
+   # On macOS/Linux:
+   source venv/bin/activate
 
-## Learn More
+2. **Install Python dependencies**:
+    ```bash
+    pip install django djangorestframework django-allauth django-cors-headers psycopg2-binary
+    
+3. **Database setup**:
+    Create a PostgreSQL database for the project
+    Update the database settings in settings.py with your credentials
+4. **Run migrations**:
+    ```bash
+    python manage.py makemigrations
+    python manage.py migrate
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+### Frontend Setup (React)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **IInstall Node.js dependencies**:
+    ```bash
+    npm install
+2. **IInstall Tailwind CSS and dependencies**:
+    ```bash
+    npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 
-## Deploy on Vercel
+### Running the Project
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Start the Django development server**:
+    ```bash
+    python manage.py runserver
+2. **Start the React development server (in a separate terminal)**:
+    ```bash
+    npm run dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+Access the application at:
+Frontend: http://localhost:3000
+Backend: http://localhost:8000

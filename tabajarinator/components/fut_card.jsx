@@ -3,10 +3,10 @@ import { FaStar } from 'react-icons/fa';
 import axios from 'axios';
 
 export default function FUTCard(props) {
-    const handleSubmit = async (avaliadoId, nota) => { 
+    const handleSubmit = async (idAvaliado, nota) => { 
         try {     
             await axios.post('http://localhost:8000/api/avaliacoes/criar/', {     
-                avaliado: avaliadoId,     
+                avaliado: idAvaliado,
                 nota_geral: nota,     
             }, {     
                 headers: {
@@ -42,7 +42,7 @@ export default function FUTCard(props) {
                             size={128}
                             emptySymbol={<FaStar color="grey" />}
                             fullSymbol={<FaStar color="gold" />}
-                            onChange={(nota) => handleSubmit(props.initialRating, nota)}/>
+                            onChange={(nota) => handleSubmit(props.idAvaliado, nota)}/>
                     </div>
                 </div>
             </div>
