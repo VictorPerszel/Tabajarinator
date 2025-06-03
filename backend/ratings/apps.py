@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AvaliacoesConfig(AppConfig):
+class RatingsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'avaliacoes'
+    name = 'ratings'

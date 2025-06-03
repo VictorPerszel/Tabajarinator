@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 const Login = () => {
   const [login, setLogin] = useState('');
-  const [senha, setSenha] = useState('');
+  const [password, setPassword] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -13,13 +13,13 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:8000/api/auth/login/', {
         username: login,
-        password: senha,
+        password: password,
       });
       
       console.log(response)
       const { token } = response.data;
       localStorage.setItem('token', token);
-      router.push('/avaliar');
+      router.push('/ratings');
     } catch (error) {
       console.log(error);
       alert('Erro ao fazer login. Verifique suas credenciais.');
@@ -27,7 +27,7 @@ const Login = () => {
   };
 
   const onSwitchToCadastro = () => {
-    router.push('/cadastro');
+    router.push('/registration');
   }
 
   return (
@@ -48,8 +48,8 @@ const Login = () => {
           <label>Senha:</label>
           <input
             type="password"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
             style={styles.input}
           />

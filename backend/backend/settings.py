@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'corsheaders',
     'auth_api',
-    'avaliacoes'
+    'ratings'
 ]
 
 MIDDLEWARE = [
@@ -141,7 +141,7 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-LOGIN_REDIRECT_URL = '/avaliar'  # Página para redirecionar após o login
+LOGIN_REDIRECT_URL = '/ratings'  # Página para redirecionar após o login
 LOGOUT_REDIRECT_URL = '/login'  # Página para redirecionar após o logout
 
 CORS_ALLOW_ALL_ORIGINS = True

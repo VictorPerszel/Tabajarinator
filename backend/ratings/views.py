@@ -1,5 +1,5 @@
-from .models import Avaliacao
-from .serializers import AvaliacaoSerializer, UserAvaliacaoSerializer, UserSerializer
+from .models import Rating
+from .serializers import RatingSerializer, UserRatingSerializer, UserSerializer
 from django.contrib.auth.models import User
 
 from rest_framework import generics
@@ -7,29 +7,33 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-class AvaliacaoCreateView(generics.ListCreateAPIView):
-    queryset = Avaliacao.objects.all()
-    serializer_class = AvaliacaoSerializer
+class RatingCreateView(generics.ListCreateAPIView):
+    queryset = Rating.objects.all()
+    serializer_class = RatingSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        Avaliacao.objects.update_or_create(
-            corneta=self.request.user,
-            avaliado_id=self.request.data.get('avaliado'),
+        # Get the rated user from the request data
+        rated_user = User.objects.get(id=self.request.data.get('rated'))
+        
+        # Create or update the rating
+        Rating.objects.update_or_create(
+            rater=self.request.user,
+            rated=rated_user,
             defaults=serializer.validated_data
         )
 
-class UserAvaliacaoView(generics.ListAPIView):
+class UserRatingView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = UserAvaliacaoSerializer
+    serializer_class = UserRatingSerializer
 
     def get(self, request):
         user = self.request.user
-        avaliacoes = Avaliacao.objects.filter(corneta=user)
-        serializer = UserAvaliacaoSerializer(avaliacoes, many=True)
+        ratings = Rating.objects.filter(rater=user)
+        serializer = UserRatingSerializer(ratings, many=True)
         return Response(serializer.data)
     
-class UserAvaliacaoTodosView(generics.ListAPIView):
+class UserRatingAllView(generics.ListAPIView):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 

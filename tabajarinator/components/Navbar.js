@@ -13,10 +13,10 @@ const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.navLinks}>
-        <Link href="/avaliar" className={styles.navLink}>
+        <Link href="/ratings" className={styles.navLink}>
           Avaliar
         </Link>
-        <Link href="/calculadora" className={styles.navLink}>
+        <Link href="/calculator" className={styles.navLink}>
           Dividir times
         </Link>
         <Link href="/profile" className={styles.navLink}>

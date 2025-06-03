@@ -40,10 +40,10 @@ Before running the project, ensure you have the following installed:
 
 ### Frontend Setup (React)
 
-1. **IInstall Node.js dependencies**:
+1. **Install Node.js dependencies**:
     ```bash
     npm install
-2. **IInstall Tailwind CSS and dependencies**:
+2. **Install Tailwind CSS and dependencies**:
     ```bash
     npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 

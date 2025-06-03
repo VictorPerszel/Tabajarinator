@@ -1,6 +1,6 @@
 .navbar {
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #6950DA;
+  box-shadow: 0 2px 4px #f054ea;
   padding: 1rem 2rem;
   position: fixed;
   top: 0;
@@ -16,11 +16,11 @@
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  color: #e6b014;
 }
 
 .navLink {
-  color: #333;
-  text-decoration: none;
+  color: #e6b014;
   font-weight: 500;
   transition: color 0.2s ease;
 }
@@ -31,8 +31,8 @@
 
 .logoutButton {
   background-color: transparent;
-  border: 1px solid #dc3545;
-  color: #dc3545;
+  border: 1px solid #f054ea;
+  color: #f054ea;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
