@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 
 const Cadastro = () => {
   const [login, setLogin] = useState('');
-  const [nome, setNome] = useState('');
-  const [senha, setSenha] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -14,8 +14,8 @@ const Cadastro = () => {
     try {
       const response = await axios.post('http://localhost:8000/api/auth/register/', {
         username: login,
-        password: senha,
-        first_name: nome
+        password: password,
+        first_name: name
       });
 
       alert('Cadastro bem-sucedido!');
@@ -44,11 +44,11 @@ const Cadastro = () => {
           />
         </div>
         <div style={styles.formGroup}>
-          <label>Nome do craque:</label>
+          <label>Apelido (Como gostaria de ser chamado?)</label>
           <input
             type="text"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
             style={styles.input}
           />
@@ -57,8 +57,8 @@ const Cadastro = () => {
           <label>Senha:</label>
           <input
             type="password"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
             style={styles.input}
           />
