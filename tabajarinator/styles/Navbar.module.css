@@ -1,38 +1,33 @@
 .navbar {
-  background-color: #6950DA;
-  box-shadow: 0 2px 4px #f054ea;
-  padding: 1rem 2rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  background: linear-gradient(to right, var(--deep-purple), var(--royal-purple));
+  box-shadow: 0 2px 4px var(--metallic-gold);
+  /* Tailwind classes on the <nav> element in Navbar.js will handle fixed positioning, width, z-index. */
+  /* Padding is handled by an inner container in Navbar.js for better control with mx-auto. */
+  /* This class primarily provides the background, shadow, and a positioning context for the dropdown. */
+  position: relative; /* Needed for the absolutely positioned mobile dropdown menu */
 }
 
-.navLinks {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  color: #e6b014;
-}
+/* .logo specific styles can be added here if they are not layout-related */
+/* e.g., filter effects or transitions on the logo image itself */
+
+/* .navLinks container styles for desktop are now primarily handled by Tailwind in Navbar.js */
 
 .navLink {
-  color: #e6b014;
+  color: #D4AF37; /* Tailwind text-yellow-500 or similar could also be used directly */
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, opacity 0.2s ease; /* Added opacity for hover effect consistency */
+  padding: 0.5rem 0.75rem; /* Added some padding for better clickability */
+  border-radius: 4px; /* Optional: for consistency with button */
 }
 
-.navLink:hover {
-  color: #007bff;
-}
+/* .navLink:hover effects are partially handled by Tailwind (e.g., hover:opacity-80 in Navbar.js) */
+/* Additional hover styles like background-color can be added here if needed: */
+/* .navLink:hover { background-color: rgba(255, 255, 255, 0.1); } */
 
 .logoutButton {
   background-color: transparent;
-  border: 1px solid #f054ea;
-  color: #f054ea;
+  border: 1px solid #D4AF37;
+  color: #D4AF37;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
@@ -41,18 +36,10 @@
 }
 
 .logoutButton:hover {
-  background-color: #dc3545;
-  color: white;
+  background-color: #D4AF37; /* Changed to gold for hover */
+  color: var(--deep-purple); /* Text color that contrasts with gold */
+  border-color: #D4AF37; /* Ensure border stays gold */
 }
 
-@media (max-width: 768px) {
-  .navbar {
-    padding: 1rem;
-  }
-
-  .navLinks {
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-} 
+/* Media queries for layout are now handled by Tailwind's responsive prefixes (e.g., md:flex) */
+/* The old @media (max-width: 768px) block has been removed. */ 
