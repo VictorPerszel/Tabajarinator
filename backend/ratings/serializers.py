@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'overall']
+        fields = ['id', 'first_name', 'overall', 'profile']
 
     def get_overall(self, obj):
         request_user = self.context['request'].user
@@ -24,7 +24,7 @@ class RatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ['id', 'rater', 'rated', 'overall']
+        fields = ['id', 'rater', 'rated', 'overall', 'profile']
 
     def validate_overall(self, value):
         if value < 1 or value > 5:
@@ -37,4 +37,4 @@ class UserRatingSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Rating
-        fields = ['id', 'rated_id', 'rated_name', 'overall']
+        fields = ['id', 'rated_id', 'rated_name', 'overall', 'profile']

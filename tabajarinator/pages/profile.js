@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Navbar from '../components/Navbar';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -9,38 +9,60 @@ export default function Profile() {
   const [profilePicture, setProfilePicture] = useState(null);
   const [preview, setPreview] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, loading: authLoading, isAuthenticated } = useAuth();
+
+  const fetchProfile = useCallback(async () => {
+    if (!user?.token) return;
+    
+    try {
+      const response = await axios.get('http://localhost:8000/api/auth/profile/', {
+        headers: {
+          'Authorization': `Token ${user.token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      setName(response.data.first_name || '');
+      if (response.data.profile?.profile_picture) {
+        setPreview(response.data.profile.profile_picture);
+      }
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+      setError('Failed to load profile data');
+    }
+  }, [user?.token]);
 
   useEffect(() => {
-    if (!user) {
+    // Only run this effect if auth check is complete (authLoading is false)
+    if (authLoading) return;
+    
+    // If no user is found after auth check, redirect to login
+    if (!isAuthenticated) {
       router.push('/login');
       return;
     }
     
     // Fetch user profile data
     fetchProfile();
-  }, [user]);
-
-  const fetchProfile = async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/api/auth/profile/', {
-        headers: {
-          'Authorization': `Token ${user}`
-        }
-      });
-      setName(response.data.first_name);
-      if (response.data.profile?.profile_picture) {
-        setPreview(response.data.profile.profile_picture);
-      }
-    } catch (error) {
-      console.error('Error fetching profile:', error);
-    }
-  };
+  }, [authLoading, isAuthenticated, router, fetchProfile]);
+  
+  // Show loading state while checking auth
+  if (authLoading) {
+    return (
+      <div style={styles.loadingContainer}>
+        <div>Loading...</div>
+      </div>
+    );
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user?.token) return;
+    
     setLoading(true);
+    setError('');
 
     try {
       const formData = new FormData();
@@ -51,14 +73,17 @@ export default function Profile() {
 
       await axios.patch('http://localhost:8000/api/auth/profile/', formData, {
         headers: {
-          'Authorization': `Token ${user}`
-        }
+          'Authorization': `Token ${user.token}`,
+          'Content-Type': 'multipart/form-data',
+        },
       });
+      
+      // Refresh profile data
+      await fetchProfile();
       alert('Perfil atualizado com sucesso!');
-      fetchProfile(); // Refresh profile data
     } catch (error) {
       console.error('Error updating profile:', error);
-      alert('Erro ao atualizar perfil. Tente novamente.');
+      setError('Erro ao atualizar perfil. Tente novamente.');
     } finally {
       setLoading(false);
     }
@@ -122,6 +147,13 @@ export default function Profile() {
 };
 
 const styles = {
+  loadingContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    fontSize: '1.2rem',
+  },
   container: {
     maxWidth: '600px',
     margin: '6rem auto',

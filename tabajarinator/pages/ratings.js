@@ -3,17 +3,15 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import FUTCard from '@/components/fut_card';
 import Navbar from '../components/Navbar';
-import Image from 'next/image';
 
 const Rating = () => {
-  const [ratings, setRatings] = useState([]);
+  const [players, setPlayers] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
-    const fetchRatings = async () => {
+    const fetchPlayersFromTeam = async () => {
       try {
         const token = localStorage.getItem('token');
-        console.log('token', token);
 
         const response = await axios.get('http://localhost:8000/api/ratings/players/', {
           headers: {
@@ -21,14 +19,14 @@ const Rating = () => {
           }
         });
         console.log(response.data);
-        setRatings(response.data);
+        setPlayers(response.data);
       } catch (error) {
         console.error('Erro ao buscar usuários', error);
         router.push('/login');
       }
     };
 
-    fetchRatings();
+    fetchPlayersFromTeam();
   }, []);
   
 
@@ -41,10 +39,10 @@ const Rating = () => {
       </h1>
       
       <div style={styles.container}>
-          {ratings.map((rating) => (          
-            <form key={rating.id}>
+          {players.map((player) => (            
+            <form key={player.id}>
               <div style={styles.usuarioContainer}>
-                <FUTCard name={rating.first_name} initialRating={rating.overall} idRated={rating.id}/>
+                <FUTCard name={player.first_name} initialRating={player.overall} idRated={player.id} picture={player.profile}/>
               </div>
             </form>
           ))}

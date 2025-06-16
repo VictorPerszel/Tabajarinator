@@ -1,30 +1,25 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
+import { useAuth } from '../contexts/AuthContext';
 import styles from '../styles/Login.module.css';
-import Image from 'next/image'
+import Image from 'next/image';
 
 const Login = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const router = useRouter();
+  const { login: loginUser } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
   
-    try {
-      const response = await axios.post('http://localhost:8000/api/auth/login/', {
-        username: login,
-        password: password,
-      });
-      
-      console.log(response)
-      const { token } = response.data;
-      localStorage.setItem('token', token);
+    const result = await loginUser(login, password);
+    if (result.success) {
       router.push('/ratings');
-    } catch (error) {
-      console.log(error);
-      alert('Erro ao fazer login. Verifique suas credenciais.');
+    } else {
+      setError(result.error || 'Erro ao fazer login. Verifique suas credenciais.');
     }
   };
 
@@ -57,7 +52,7 @@ const Login = () => {
             className={styles.input}
           />
         </div>
-        <button type="submit" className={styles.button}>Entrar</button>
+        <button type="submit" className={styles.button}><b>Entrar</b></button>
         <button
           type="button"
           className={styles.switchButton}
