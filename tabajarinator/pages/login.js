@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../contexts/AuthContext';
 import styles from '../styles/Login.module.css';
 import Image from 'next/image';
+import formStyles from '../styles/Form.module.css';
 
 const Login = () => {
   const [login, setLogin] = useState('');
@@ -28,39 +29,41 @@ const Login = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <Image className={styles.logo} src="/logo.png" width={50} height={50} alt="Logo" />
-      <Image className={styles.vines} src="/vines.png" width={300} height={50} alt="Logo" />
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Login:</label>
-          <input
-            type="text"
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
-            required
-            className={styles.input}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Senha:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className={styles.input}
-          />
-        </div>
-        <button type="submit" className={styles.button}><b>Entrar</b></button>
-        <button
-          type="button"
-          className={styles.switchButton}
-          onClick={onSwitchToCadastro}
-        >
-          Cadastre-se
-        </button>
-      </form>
+    <div className={formStyles.container}>
+    <Image className={styles.logo} src="/logo.png" width={50} height={50} alt="Logo" />
+    <Image className={styles.vines} src="/vines.png" width={350} height={50} alt="Logo" />
+      <div className={styles.form}>
+        <form onSubmit={handleSubmit}>
+          <div className={formStyles.formGroup}>
+            <label className={formStyles.label}>Login:</label>
+            <input
+              type="text"
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
+              required
+              className={formStyles.input}
+            />
+          </div>
+          <div className={formStyles.formGroup}>
+            <label className={formStyles.label}>Senha:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className={formStyles.input}
+            />
+          </div>
+          <button type="submit" className={formStyles.button}>Entrar</button>
+          <button
+            type="button"
+            className={formStyles.secondaryButton}
+            onClick={onSwitchToCadastro}
+          >
+            Cadastre-se
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

@@ -13,11 +13,14 @@ class RegisterView(APIView):
     """
     View para registro de novos usuários.
     """
+    parser_classes = [MultiPartParser, FormParser]
+    
     def post(self, request):
         # Extrair dados da requisição
         username = request.data.get('username')
         password = request.data.get('password')
         first_name = request.data.get('first_name')
+        profile_image = request.FILES.get('profile_image')
 
         # Validar dados
         if not username or not password:
@@ -35,6 +38,11 @@ class RegisterView(APIView):
         
         # Criar o usuário
         user = User.objects.create_user(username=username, password=password, first_name=first_name)
+        
+        # Atualizar a foto de perfil se fornecida
+        if profile_image:
+            user.profile.profile_picture = profile_image
+            user.profile.save()
 
         # Retornar resposta de sucesso
         return Response(

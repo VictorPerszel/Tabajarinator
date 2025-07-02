@@ -3,9 +3,12 @@ import Navbar from '../components/Navbar';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useAuth } from '../contexts/AuthContext';
+import formStyles from '../styles/Form.module.css';
+import Image from 'next/image';
 
 export default function Profile() {
   const [name, setName] = useState('');
+  const [telephone, setTelephone] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
   const [preview, setPreview] = useState('');
   const [loading, setLoading] = useState(false);
@@ -25,6 +28,7 @@ export default function Profile() {
       });
       
       setName(response.data.first_name || '');
+      setTelephone(response.data.profile?.telephone || '');
       if (response.data.profile?.profile_picture) {
         setPreview(response.data.profile.profile_picture);
       }
@@ -67,8 +71,9 @@ export default function Profile() {
     try {
       const formData = new FormData();
       formData.append('first_name', name);
+      formData.append('profile.telephone', telephone);
       if (profilePicture) {
-        formData.append('profile[profile_picture]', profilePicture);
+        formData.append('profile.profile_picture', profilePicture);
       }
 
       await axios.patch('http://localhost:8000/api/auth/profile/', formData, {
@@ -104,47 +109,90 @@ export default function Profile() {
   return (
     <div>
       <Navbar />
-      <div style={styles.container}>
-        <h2>Meu Perfil</h2>
-        <form onSubmit={handleSubmit} style={styles.form}>
-          <div style={styles.formGroup}>
-            <label>Apelido:</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              style={styles.input}
-            />
-          </div>
-          <div style={styles.formGroup}>
-            <label>Foto de Perfil:</label>
-            <div style={styles.imageContainer}>
-              {preview ? (
-                <img src={preview} alt="Profile" style={styles.imagePreview} />
-              ) : (
-                <div style={styles.placeholder}>Sem foto</div>
-              )}
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                style={styles.fileInput}
-              />
+      <div className={formStyles.container}>
+        <form onSubmit={handleSubmit} className={formStyles.form}>
+          <h1 className={formStyles.title}>Meu Perfil</h1>
+          <p className={formStyles.subtitle}>Atualize suas informações pessoais</p>
+          
+          <div className={formStyles.formColumns}>
+            <div className={formStyles.column}>
+              <div className={formStyles.formGroup}>
+                <label className={formStyles.label}>Como gostaria de ser chamado?</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className={formStyles.input}
+                  placeholder="Digite seu apelido"
+                />
+              </div>
+              <div className={formStyles.formGroup}>
+                <label className={formStyles.label}>Telefone:</label>
+                <input
+                  type="tel"
+                  value={telephone}
+                  onChange={(e) => setTelephone(e.target.value)}
+                  className={formStyles.input}
+                  placeholder="Como estiver no WhatsApp"
+                />
+              </div>
+            </div>
+            
+            <div className={formStyles.column}>
+              <div className={formStyles.formGroup}>
+                <label className={formStyles.label}>Foto de perfil:</label>
+                <div className={formStyles.profileImageContainer}>
+                  <div className={formStyles.imagePreview}>
+                    {preview ? (
+                      <Image
+                        src={preview}
+                        alt="Preview"
+                        width={150}
+                        height={150}
+                        className={formStyles.profileImage}
+                      />
+                    ) : (
+                      <div>
+                        Sem foto
+                      </div>
+                    )}
+                  </div>
+                  <input
+                    type="file"
+                    onChange={handleImageChange}
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    id="profile-image-input"
+                  />
+                  <label htmlFor="profile-image-input" className={formStyles.uploadButton}>
+                    Escolher imagem
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
-          <button
-            type="submit"
-            disabled={loading}
-            style={styles.button}
-          >
-            {loading ? 'Atualizando...' : 'Salvar Alterações'}
-          </button>
+          
+          {error && (
+            <div style={styles.errorMessage}>
+              {error}
+            </div>
+          )}
+          
+          <div className={formStyles.buttonContainer}>
+            <button
+              type="submit"
+              disabled={loading}
+              className={formStyles.button}
+            >
+              {loading ? 'Atualizando...' : 'Salvar Alterações'}
+            </button>
+          </div>
         </form>
       </div>
     </div>
   );
-};
+}
 
 const styles = {
   loadingContainer: {
@@ -154,67 +202,12 @@ const styles = {
     height: '100vh',
     fontSize: '1.2rem',
   },
-  container: {
-    maxWidth: '600px',
-    margin: '6rem auto',
-    padding: '2rem',
-    backgroundColor: '#fff',
-    borderRadius: '8px',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem',
-  },
-  formGroup: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.5rem',
-  },
-  input: {
-    padding: '0.5rem',
+  errorMessage: {
+    color: '#d32f2f',
+    backgroundColor: '#ffebee',
+    padding: '0.75rem',
     borderRadius: '4px',
-    border: '1px solid #ddd',
-  },
-  textarea: {
-    padding: '0.5rem',
-    borderRadius: '4px',
-    border: '1px solid #ddd',
-    minHeight: '100px',
-    resize: 'vertical',
-  },
-  imageContainer: {
-    position: 'relative',
     marginBottom: '1rem',
-  },
-  imagePreview: {
-    width: '150px',
-    height: '150px',
-    objectFit: 'cover',
-    borderRadius: '50%',
-  },
-  placeholder: {
-    width: '150px',
-    height: '150px',
-    backgroundColor: '#f0f0f0',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#666',
-    fontSize: '1rem',
-  },
-  fileInput: {
-    marginTop: '0.5rem',
-  },
-  button: {
-    padding: '0.5rem 1rem',
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    fontSize: '1rem',
+    textAlign: 'center',
   },
 };

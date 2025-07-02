@@ -152,36 +152,6 @@
   cursor: not-allowed;
 }
 
-.imageContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 1rem 0;
-}
-
-.imagePreview {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid var(--metallic-gold);
-  margin-bottom: 1rem;
-}
-
-.placeholder {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background-color: var(--light-gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--charcoal-grey);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-  border: 3px solid var(--metallic-gold);
-}
-
 .fileInput {
   width: 100%;
   margin-top: 0.5rem;
@@ -203,7 +173,8 @@
   font-weight: 200;
 }
 
-.switchButton {
+.secondaryButton {
+  width: 100%;
   padding: 10px;
   color: var(--charcoal-grey);
   border: 1px solid var(--light-gold);
@@ -212,6 +183,6 @@
   transition: background-color 0.2s, transform 0.1s;
 }
 
-.switchButton:hover {
+.secondaryButton:hover {
   background-color: var(--lighter-gold);
 }

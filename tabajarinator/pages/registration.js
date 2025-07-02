@@ -152,7 +152,7 @@ const Cadastro = () => {
           </button>
           <button
             type="button"
-            className={formStyles.switchButton}
+            className={formStyles.secondaryButton}
             onClick={onSwitchToLogin}
           >
             Já tem uma conta? Faça login

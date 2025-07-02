@@ -1,6 +1,7 @@
 import Rating from 'react-rating';
 import { FaStar } from 'react-icons/fa';
 import axios from 'axios';
+import Image from 'next/image';
 
 export default function FUTCard(props) {
     const handleRatingSubmit = async (playerId, rating) => { 
@@ -29,7 +30,20 @@ export default function FUTCard(props) {
                         <div className="player-nation"><img src="https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg" alt="Argentina" draggable="false" /></div>
                         <div className="player-club"><img src="https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg" alt="Barcelona" draggable="false" /></div>
                     </div>
-                    <div className="player-picture"><img src={props.profile} alt="Messi" draggable="false" /> </div>
+                    <div className="player-picture">
+                        {props.picture ? (
+                            <Image 
+                                src={props.picture} 
+                                alt={props.name || "Player"} 
+                                width={200} 
+                                height={200}
+                                style={{ objectFit: 'cover' }}
+                                draggable="false" 
+                            />
+                        ) : (
+                            <div className="player-picture"><img src="https://selimdoyranli.com/cdn/fut-player-card/img/messi.png" alt="Messi" draggable="false" /></div>
+                        )}
+                    </div>
                 </div>
                 <div className="player-card-bottom">
                     <div className="player-info">

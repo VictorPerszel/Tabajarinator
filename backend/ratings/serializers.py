@@ -1,9 +1,11 @@
 from rest_framework import serializers
 from .models import Rating
 from django.contrib.auth.models import User
+from auth_api.serializers import UserProfileSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     overall = serializers.SerializerMethodField()
+    profile = UserProfileSerializer(read_only=True)
 
     class Meta:
         model = User

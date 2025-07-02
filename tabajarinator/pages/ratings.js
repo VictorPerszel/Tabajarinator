@@ -42,7 +42,7 @@ const Rating = () => {
           {players.map((player) => (            
             <form key={player.id}>
               <div style={styles.usuarioContainer}>
-                <FUTCard name={player.first_name} initialRating={player.overall} idRated={player.id} picture={player.profile}/>
+                <FUTCard name={player.first_name} initialRating={player.overall} idRated={player.id} picture={player.profile?.profile_picture}/>
               </div>
             </form>
           ))}
