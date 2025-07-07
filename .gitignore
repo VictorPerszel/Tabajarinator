@@ -8,3 +8,4 @@ backend/auth_api/management/
 backend/delete_all_users.py
 backend/media/
 backend/reset_database.py
+.DS_Store

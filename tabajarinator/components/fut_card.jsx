@@ -1,5 +1,4 @@
-import Rating from 'react-rating';
-import { FaStar } from 'react-icons/fa';
+import { Rating } from '@mui/material';
 import axios from 'axios';
 import Image from 'next/image';
 
@@ -45,14 +44,10 @@ export default function FUTCard(props) {
                     <div className="player-info">
                         <div className="player-name"><span>{props.name}</span></div>
                         <div className="player-features">
-                          
-                        <Rating
-                            fractions="2"
-                            initialRating={props.initialRating}
-                            size={128}
-                            emptySymbol={<FaStar color="grey" />}
-                            fullSymbol={<FaStar color="gold" />}
-                            onChange={(rating) => handleRatingSubmit(props.idRated, rating)}/>
+                        <Rating name="half-rating" 
+                            defaultValue={props.initialRating} 
+                            precision={0.5} 
+                            onChange={(event, newValue) => handleRatingSubmit(props.idRated, newValue)}/>
                         </div>
                     </div>
                 </div>
