@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;  
+  --dark-outline: #040a23;
   --deep-purple: #4B0082;
   --metallic-gold: #D4AF37;
   --light-grey: #D3D3D3;
@@ -32,7 +33,10 @@ body {
   color: var(--foreground);
   font-family: 'Saira Semi Condensed', sans-serif;
   font-weight: 400;
-  background: url("../public/pattern.avif");
+  background: url("../public/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 label {

@@ -68,10 +68,9 @@ const styles = {
     justifyContent: 'center',
     fontSize: 'clamp(28px, 15.5vw, 93px)', // Adjusted for ~80% width on small screens, ~40% on large
 
-    // n ta fazendo nada 
     textShadow: '1px 1px 2px var(--metallic-gold)',
     fontFamily: 'impact',
-    marginTop: '80px',
+    marginTop: '180px',
     whiteSpace: 'nowrap', // Prevent T and ribunal from breaking apart
     position: 'relative'
   },
@@ -84,12 +83,16 @@ const styles = {
   },
   tribunalText: {
     fontSize: 'clamp(28px, 15.5vw, 93px)', // Adjusted for ~80% width
-    textShadow: '1px 1px 2px var(--metallic-gold)',
+    textShadow: '2px 1px 2px var(--dark-outline)',
+    WebkitTextFillColor: 'var(--light-gold)',
+    WebkitTextStrokeWidth: '1px',
+    WebkitTextStrokeColor: 'var(--dark-outline)',
+    WebkitTextStroke: '3px var(--dark-outline)',
     fontFamily: 'impact',
     whiteSpace: 'nowrap',
     marginLeft: '-15px',
     position: 'relative',
-    top: '-10px' // Move text 5px up from the baseline
+    top: '-10px'
   }
 };
 
