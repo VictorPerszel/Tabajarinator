@@ -33,10 +33,10 @@ const Rating = () => {
   return (
     <>
       <Navbar />
-      <h1 style={styles.header}>
+      <div style={styles.header}>
         <img src="/gabel_gold.png" alt="T" style={styles.gabel} />
         <span style={styles.tribunalText}>Tribunal</span>
-      </h1>
+      </div>
       
       <div style={styles.container}>
           {players.map((player) => (            
