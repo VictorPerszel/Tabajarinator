@@ -3,45 +3,69 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import FUTCard from '@/components/fut_card';
 import Navbar from '../components/Navbar';
+import styles from '../styles/Ratings.module.css';
 
 const Rating = () => {
   const [players, setPlayers] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
-    const fetchPlayersFromTeam = async () => {
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
 
-        const response = await axios.get('http://localhost:8000/api/ratings/players/', {
+        // Fetch current user data
+        const currentUserResponse = await axios.get('http://localhost:8000/api/ratings/current-user/', {
           headers: {
             'Authorization': `Token ${token}`
           }
         });
-        console.log(response.data);
-        setPlayers(response.data);
+        setCurrentUser(currentUserResponse.data);
+
+        // Fetch other players data
+        const playersResponse = await axios.get('http://localhost:8000/api/ratings/players/', {
+          headers: {
+            'Authorization': `Token ${token}`
+          }
+        });
+        console.log(playersResponse.data);
+        setPlayers(playersResponse.data);
       } catch (error) {
-        console.error('Erro ao buscar usuários', error);
+        console.error('Erro ao buscar dados', error);
         router.push('/login');
       }
     };
 
-    fetchPlayersFromTeam();
+    fetchData();
   }, []);
   
 
   return (
     <>
       <Navbar />
-      <div style={styles.header}>
-        <img src="/gabel_gold.png" alt="T" style={styles.gabel} />
-        <span style={styles.tribunalText}>Tribunal</span>
+      <div className={styles.header}>
+        <div className={styles.tribunalContainer}>
+          <img src="/gabel_gold.png" alt="T" className={styles.gabel} />
+          <span className={styles.tribunalText}>Tribunal</span>
+        </div>
+        {currentUser && (
+          <div className={styles.currentUserCard}>
+            <FUTCard 
+              name={currentUser.first_name} 
+              initialRating={currentUser.overall} 
+              idRated={currentUser.id} 
+              picture={currentUser.profile?.profile_picture}
+              isCurrentUser={true}
+            />
+          </div>
+        )}
       </div>
       
-      <div style={styles.container}>
+      <div className={styles.container}>
           {players.map((player) => (            
             <form key={player.id}>
-              <div style={styles.usuarioContainer}>
+              <div className={styles.usuarioContainer}>
                 <FUTCard name={player.first_name} initialRating={player.overall} idRated={player.id} picture={player.profile?.profile_picture}/>
               </div>
             </form>
@@ -49,51 +73,6 @@ const Rating = () => {
       </div>
     </>
   );
-};
-
-const styles = {
-  container: {
-    fontFamily: 'Arial, sans-serif',
-    display: 'flex',    
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    marginTop: '80px' // Add margin to account for fixed navbar
-  },
-  usuarioContainer: {
-    margin: '8px',
-  },
-  header: {
-    display: 'flex',
-    alignItems: 'baseline',
-    justifyContent: 'center',
-    fontSize: 'clamp(28px, 15.5vw, 93px)', // Adjusted for ~80% width on small screens, ~40% on large
-
-    textShadow: '1px 1px 2px var(--metallic-gold)',
-    fontFamily: 'impact',
-    marginTop: '180px',
-    whiteSpace: 'nowrap', // Prevent T and ribunal from breaking apart
-    position: 'relative'
-  },
-  gabel: {
-    height: '2em', 
-    width: 'auto', 
-    display: 'inline-block', // Remains useful for intrinsic sizing
-    verticalAlign: 'baseline', // Helps align with text if flex alignment needs assistance
-    marginRight: '-30px'
-  },
-  tribunalText: {
-    fontSize: 'clamp(28px, 15.5vw, 93px)', // Adjusted for ~80% width
-    textShadow: '2px 1px 2px var(--dark-outline)',
-    WebkitTextFillColor: 'var(--light-gold)',
-    WebkitTextStrokeWidth: '1px',
-    WebkitTextStrokeColor: 'var(--dark-outline)',
-    WebkitTextStroke: '3px var(--dark-outline)',
-    fontFamily: 'impact',
-    whiteSpace: 'nowrap',
-    marginLeft: '-15px',
-    position: 'relative',
-    top: '-10px'
-  }
 };
 
 export default Rating;

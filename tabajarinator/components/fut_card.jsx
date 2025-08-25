@@ -1,10 +1,11 @@
 import { Rating } from '@mui/material';
 import axios from 'axios';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaBan, FaCheck } from 'react-icons/fa';
 import Switch from '@mui/material/Switch';
 import { MdStarOutline } from 'react-icons/md';
+import { IoCheckmarkCircleOutline, IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 import GoleiroIcon from '../public/svg/goleiro.svg';
 import MarcacaoIcon from '../public/svg/marcacao.svg';
 import VelocidadeIcon from '../public/svg/velocidade.svg';
@@ -16,13 +17,21 @@ export default function FUTCard(props) {
     const [isAdvancedOptions, setIsAdvancedOptions] = useState(false);
     const [hover, setHover] = useState(0);
     const [ratings, setRatings] = useState({
-        overall: 0,
+        overall: props.initialRating || 0,
         pace: 0,
         shooting: 0,
         passing: 0,
         dribbling: 0,
         defending: 0
     });
+
+    // Update ratings when props change
+    useEffect(() => {
+        setRatings(prev => ({
+            ...prev,
+            overall: props.initialRating || 0
+        }));
+    }, [props.initialRating]);
 
     const labelsGoleiro = {
         0.5: 'Não consegue ver a bola',
@@ -38,10 +47,12 @@ export default function FUTCard(props) {
     }
 
     const handleAttributeRating = (attribute, rating) => {
-        // Only update local state immediately for better UX
+        if (props.isCurrentUser) {
+            return;
+        }
+
         setRatings(prev => ({ ...prev, [attribute]: rating }));
         
-        // Debounce the API call to avoid too many requests
         setTimeout(async () => {
             try {
                 await axios.post('http://localhost:8000/api/ratings/create/', {
@@ -86,64 +97,21 @@ export default function FUTCard(props) {
                                 draggable="false" 
                             />
                         </div>
+                        <div className="rated-icon">
+                            {/* {props.initialRating ? (
+                                <FaCheck style={{ color: 'green', fontSize: '2.5rem' }}/>
+                            ) : (
+                                <FaBan style={{ color: 'red', fontSize: '2.5rem' }}/>
+                            )} */}
+                        </div>
                     </div>
                     <div className="player-card-bottom">
                         <div className="player-info">
                             <div className="player-name"><span>{props.name}</span></div>
-                            <div className="player-features">
-                                {/* {props.initialRating ? (
-                                    <span>Jogador avaliado <FaCheck style={{ color: 'green' }}/></span>
+                            <div className="player-rating">
+                                {props.isCurrentUser ? (
+                                    <div className="current-user-message">É assim que sua carta aparece para os outros</div>
                                 ) : (
-                                    <span>Jogador não avaliado <FaBan style={{ color: 'red' }}/></span>
-                                )} */}
-                                <div className="player-features-col">
-                                    <img src="/svg/goleiro.svg" alt="Goleiro" className="attribute-icon" />
-                                    <span>99</span>
-                                </div>
-                                <div className="player-features-col">
-                                    <img src="/svg/marcacao.svg" alt="Marcação" className="attribute-icon" />
-                                    <span>99</span>
-                                </div>
-                                <div className="player-features-col">
-                                    <img src="/svg/velocidade.svg" alt="Velocidade" className="attribute-icon" />
-                                    <span>99</span>
-                                </div>
-                                <div className="player-features-col">
-                                    <img src="/svg/habilidade.svg" alt="Habilidade" className="attribute-icon" />
-                                    <span>99</span>
-                                </div>
-                                <div className="player-features-col">
-                                    <img src="/svg/raca.svg" alt="Raça" className="attribute-icon" />
-                                    <span>99</span>
-                                </div>
-                            </div>
-                            <button 
-                                type="button"
-                                className="flip-button"
-                                onClick={handleFlip}
-                            >
-                                Avaliar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="card-back">
-                    <div className="back-content">
-                        <div className="back-header">
-                            <div className="switch-container">
-                                <span className="switch-label">Simples</span>
-                                <Switch 
-                                    color="default" 
-                                    checked={isAdvancedOptions} 
-                                    onChange={() => setIsAdvancedOptions(!isAdvancedOptions)} 
-                                />
-                                <span className="switch-label">Completa</span>
-                            </div>
-                        </div>
-                        <div className="attributes-container">
-                            {!isAdvancedOptions ? (
-                                <div className="attribute-row centered-rating">
                                     <Rating 
                                         name="overall-rating" 
                                         value={ratings.overall || 0}
@@ -152,81 +120,12 @@ export default function FUTCard(props) {
                                         onChangeActive={(_event, newValue) => setHover(newValue)}
                                         emptyIcon={<MdStarOutline style={{ opacity: 1, color: '#d4af37' }} fontSize="inherit" />}
                                         size="large"
+                                        disabled={props.isCurrentUser}
                                     />
-                                </div>
-                            ) : (
-                                <>
-                                    <div className="attribute-row">
-                                        <div className="attribute-label-container">
-                                            <img src="/svg/goleiro.svg" alt="Goleiro" className="attribute-icon" />
-                                            <span className="attribute-label">Goleiro</span>
-                                        </div>
-                                        <Rating 
-                                            name="gk-rating" 
-                                            value={ratings.gk}
-                                            precision={0.5} 
-                                            onChange={(_event, newValue) => handleAttributeRating('rating_gk', newValue)}
-                                        />
-                                    </div>
-                                    <div className="attribute-row">
-                                        <div className="attribute-label-container">
-                                            <img src="/svg/marcacao.svg" alt="Marcação" className="attribute-icon" />
-                                            <span className="attribute-label">Marcação</span>
-                                        </div>
-                                        <Rating 
-                                            name="defense-rating" 
-                                            value={ratings.defense}
-                                            precision={0.5} 
-                                            onChange={(_event, newValue) => handleAttributeRating('rating_defense', newValue)}
-                                        />
-                                    </div>
-                                    <div className="attribute-row">
-                                        <div className="attribute-label-container">
-                                            <img src="/svg/velocidade.svg" alt="Velocidade" className="attribute-icon" />
-                                            <span className="attribute-label">Velocidade</span>
-                                        </div>
-                                        <Rating 
-                                            name="speed-rating" 
-                                            value={ratings.speed}
-                                            precision={0.5} 
-                                            onChange={(_event, newValue) => handleAttributeRating('rating_speed', newValue)}
-                                        />
-                                    </div>
-                                    <div className="attribute-row">
-                                        <div className="attribute-label-container">
-                                            <img src="/svg/habilidade.svg" alt="Habilidade" className="attribute-icon" />
-                                            <span className="attribute-label">Habilidade</span>
-                                        </div>
-                                        <Rating 
-                                            name="skill-rating" 
-                                            value={ratings.skill}
-                                            precision={0.5} 
-                                            onChange={(_event, newValue) => handleAttributeRating('rating_skill', newValue)}
-                                        />
-                                    </div>
-                                    <div className="attribute-row">
-                                        <div className="attribute-label-container">
-                                            <img src="/svg/raca.svg" alt="Raça" className="attribute-icon" />
-                                            <span className="attribute-label">Raça</span>
-                                        </div>
-                                        <Rating 
-                                            name="willpower-rating" 
-                                            value={ratings.willpower}
-                                            precision={0.5} 
-                                            onChange={(_event, newValue) => handleAttributeRating('rating_willpower', newValue)}
-                                        />
-                                    </div>
-                                </>
-                            )}
+                                    
+                                )}
+                            </div>
                         </div>
-                        <p>{labelsGoleiro[hover] ? labelsGoleiro[hover] : 'Clicar nos ícones reseta o voto'}</p>
-                        <button 
-                            type="button"
-                            className="flip-button"
-                            onClick={handleFlip}
-                        >
-                            Voltar
-                        </button>
                     </div>
                 </div>
             </div>

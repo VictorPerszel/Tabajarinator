@@ -34,9 +34,10 @@ body {
   font-family: 'Saira Semi Condensed', sans-serif;
   font-weight: 400;
   background: url("../public/background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-repeat: repeat-y;
+  background-attachment: fixed;
+  background-position: top center;
 }
 
 label {

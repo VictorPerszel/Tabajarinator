@@ -42,3 +42,11 @@ class UserRatingAllView(generics.ListAPIView):
 
     def get_serializer_context(self):
         return {'request': self.request}
+
+class CurrentUserView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        user = request.user
+        serializer = UserSerializer(user, context={'request': request})
+        return Response(serializer.data)

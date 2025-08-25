@@ -1,0 +1,61 @@
+.container {
+  font-family: Arial, sans-serif;
+  display: flex;    
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 1rem 0; /* Add margin to account for fixed navbar */
+}
+
+.usuarioContainer {
+  margin: 0 0.5rem 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: clamp(28px, 15.5vw, 93px); /* Adjusted for ~80% width on small screens, ~40% on large */
+  text-shadow: 1px 1px 2px var(--metallic-gold);
+  font-family: impact;
+  margin: 80px 0.5rem 0;
+  white-space: nowrap; /* Prevent T and ribunal from breaking apart */
+  position: relative;
+  padding: 0 20px; /* Add some padding for spacing from edges */
+  height: auto; /* Ensure header height is based on content */
+  min-height: 0; /* Allow header to shrink */
+}
+
+.gabel {
+  height: 2em; 
+  width: auto; 
+  display: inline-block; /* Remains useful for intrinsic sizing */
+  vertical-align: baseline; /* Helps align with text if flex alignment needs assistance */
+  margin-right: -30px;
+}
+
+.tribunalText {
+  font-size: clamp(28px, 15.5vw, 93px); /* Adjusted for ~80% width */
+  text-shadow: 2px 1px 2px var(--dark-outline);
+  -webkit-text-fill-color: var(--light-gold);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--dark-outline);
+  -webkit-text-stroke: 3px var(--dark-outline);
+  font-family: impact;
+  white-space: nowrap;
+  margin-left: -15px;
+  position: relative;
+  top: -10px;
+}
+
+.currentUserCard {
+  height: auto;
+  max-height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.currentUserCard .wrapper {
+  transform: scale(0.7);
+  transform-origin: center;
+}
